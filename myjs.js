@@ -1,51 +1,39 @@
-function find(event) 
-{
-	event.preventDefault();
+// Show today's date
+const todayDate = new Date();
+document.getElementById("today").innerText =
+    "📅 Today: " + todayDate.toDateString();
 
-	let day = document.getElementById("day");
-	let month = document.getElementById("month");
-	let msg = document.getElementById("msg");
+function find(event) {
+    event.preventDefault();
 
-	if (day.value === "") 
-	{
-		alert("Please enter a valid day");
-		msg.innerHTML = "";
-		day.focus();
-		return;
-	}
-	else if (day.value < 1 || day.value > 31) 
-	{
-		alert("Please enter a valid day");
-		msg.innerHTML = "";
-		day.focus();
-		return;
-	}
-	else if (month.value === "") 
-	{
-		alert("Please enter a valid month");
-		msg.innerHTML = "";
-		month.focus();
-		return;
-	}
-	else if (month.value < 1 || month.value > 12) 
-	{
-		alert("Please enter a valid month");
-		msg.innerHTML = "";
-		month.focus();
-		return;
-	}
+    const day = Number(document.getElementById("day").value);
+    const month = Number(document.getElementById("month").value);
 
-	let today = new Date();
-	let currentYear = today.getFullYear();
-	let nextBirthday = new Date(currentYear, parseInt(month.value) - 1, parseInt(day.value));
+    const now = new Date();
+    let birthday = new Date(now.getFullYear(), month - 1, day);
 
-	if (nextBirthday < today) 
-	{
-		nextBirthday.setFullYear(currentYear + 1);
-	}
+    // Invalid date check (like Feb 30)
+    if (birthday.getDate() !== day || birthday.getMonth() !== month - 1) {
+        document.getElementById("msg").innerText = "❌ Invalid date entered";
+        return;
+    }
 
-	let timeDiff = nextBirthday - today;  
-	let daysDiff = (timeDiff / (1000 * 60 * 60 * 24)) | 0;
+    // If birthday passed, move to next year
+    if (birthday < now) {
+        birthday.setFullYear(now.getFullYear() + 1);
+    }
 
-	msg.innerHTML = "Days left until your birthday: " + daysDiff;
+    const diff = birthday - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    if (days === 0) {
+        document.getElementById("msg").innerText =
+            "🎉🎂 HAPPY BIRTHDAY! 🎂🎉";
+    } else {
+        document.getElementById("msg").innerText =
+            `🎈 ${days} days, ${hours} hours, ${minutes} minutes left!`;
+    }
 }
