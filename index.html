@@ -1,17 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Birthday Counter</title>
-	<link rel="stylesheet" href="style.css"/>
-	<script src="myjs.js"></script>   
+    <meta charset="UTF-8">
+    <title>Birthday Counter 🎉</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1>Birthday Counter</h1>
-	<form onsubmit="find(event)">
-		<input type="number" id="day" placeholder="Day">
-		<input type="number" id="month" placeholder="Month">
-		<br><br>
-		<input type="submit" value="Calculate days until Bday">
-	</form>
-	<h2 id="msg"></h2>
+
+    <div class="card">
+        <h1>🎂 Birthday Counter</h1>
+        <p id="today"></p>
+
+        <form onsubmit="find(event)">
+            <input type="number" id="day" placeholder="Day (1-31)" min="1" max="31" required>
+            <input type="number" id="month" placeholder="Month (1-12)" min="1" max="12" required>
+            <button type="submit">Calculate</button>
+        </form>
+
+        <h2 id="msg"></h2>
+    </div>
+
+    <script src="myjs.js"></script>
 </body>
 </html>
